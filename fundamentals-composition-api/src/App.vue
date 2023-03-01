@@ -36,7 +36,7 @@ const doEdit = (isEdited) => {
   <form class="add-item-form" @submit.prevent="saveItem" v-if="editing">
     <input type="text" v-model.trim="newItem" placeholder="Add an item">
     <input type="checkbox" v-model="newItemHighPriority" name="" id=""> High Priority
-    <button class="btn btn-primary">
+    <button class="btn btn-primary" :disabled="!newItem.length">
       Save Item
     </button>
   </form>
