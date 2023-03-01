@@ -12,12 +12,17 @@ const items = ref([
 const newItem = ref('')
 const newItemHighPriority = ref('')
 
+const saveItem = () => {
+  items.value.push({ id: items.value.length + 1, label: newItem.value })
+  newItem.value = ''
+}
+
 </script>
 
 <template>
   <h1>{{ header }}</h1>
 
-  <form class="add-item-form" @submit.prevent="items.push({ id: items.length + 1, label: newItem })">
+  <form class="add-item-form" @submit.prevent="saveItem">
     <input type="text" v-model.trim="newItem" placeholder="Add an item">
     <input type="checkbox" v-model="newItemHighPriority" name="" id=""> High Priority
     <button class="btn btn-primary">
