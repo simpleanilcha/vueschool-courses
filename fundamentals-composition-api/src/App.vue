@@ -4,9 +4,9 @@ import { ref } from 'vue'
 const header = ref('Shopping List App')
 
 const items = ref([
-  { id: 1, label: "10 party hats" },
-  { id: 2, label: "2 board games" },
-  { id: 3, label: "20 cups" }
+  { id: 1, label: "10 party hats", purchased: true, highPriority: false },
+  { id: 2, label: "2 board games", purchased: true, highPriority: false },
+  { id: 3, label: "20 cups", purchased: false, highPriority: true }
 ])
 
 const newItem = ref('')
@@ -15,13 +15,23 @@ const newItemHighPriority = ref('')
 const editing = ref(false)
 
 const saveItem = () => {
-  items.value.push({ id: items.value.length + 1, label: newItem.value })
+  items.value.push(
+    {
+      id: items.value.length + 1,
+      label: newItem.value,
+      highPriority: newItemHighPriority.value
+    })
   newItem.value = ''
+  newItemHighPriority.value = ''
 }
 
 const doEdit = (isEdited) => {
   editing.value = isEdited
   newItem.value = ''
+}
+
+const togglePurchased = (item) => {
+  item.purchased = !item.purchased
 }
 
 </script>
@@ -42,8 +52,9 @@ const doEdit = (isEdited) => {
   </form>
 
   <ul>
-    <li v-for="({ id, label }, index) in items" :key="id">
-      {{ label }}
+    <li v-for="(item, index) in items" :key="id" :class="{ strikeout: item.purchased, priority: item.highPriority }"
+      @click="togglePurchased(item)">
+      {{ item.label }}
     </li>
   </ul>
 
