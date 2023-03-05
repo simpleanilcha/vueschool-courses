@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
 
 const header = ref('Shopping List App')
 const editing = ref(false)
@@ -9,9 +9,6 @@ const items = ref([
   { id: 3, label: "20 cups", purchased: false, highPriority: true }
 ])
 const reversedItems = computed(() => [...items.value].reverse())
-// const characterCount = computed(() => {
-//   return newItem.value.length
-// })
 
 const newItem = ref('')
 const newItemHighPriority = ref('')
@@ -33,6 +30,14 @@ const togglePurchased = (item) => {
   item.purchased = !item.purchased
 }
 
+const state = reactive({ count: 0 })
+const increment = () => {
+  return state.count++
+}
+
+const msg = ref('Hello Vue 3!')
+console.log(msg, msg.value)
+
 </script>
 
 <template>
@@ -49,7 +54,6 @@ const togglePurchased = (item) => {
       Save Item
     </button>
   </form>
-  <!-- <p class="counter">{{ characterCount }} / 200</p> -->
 
   <ul>
     <li v-for="(item, index) in reversedItems" :key="id"
@@ -59,4 +63,8 @@ const togglePurchased = (item) => {
   </ul>
 
   <p v-if="!items.length">Nothing to see here</p>
+
+  <p>{{ state.count }}</p>
+  <button @click="increment">Increment count</button>
+  <p>{{ msg }}</p>
 </template>
