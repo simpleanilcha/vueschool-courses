@@ -1,10 +1,4 @@
 const app = Vue.createApp({
-  data() {
-    return {
-      plans: ['The Single', 'The Curious', 'The Addict']
-    }
-  },
-
 })
 
 .component('plan', {
@@ -16,13 +10,17 @@ const app = Vue.createApp({
       default: 'Hello',
       required: true
     }
-  },
+  }
 
-  // data() {
-  //   return {
-  //     title: 'The Single'
-  //   }
-  // }
+})
+
+.component('plan-picker', {
+  data() {
+    return {
+      plans: ['The Single', 'The Curious', 'The Addict']
+    }
+  },
+  template: '#plan-picker-template',
 })
 
 .mount('#app')

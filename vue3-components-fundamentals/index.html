@@ -16,39 +16,12 @@
         We travel the world to source the very best single origin coffee for you
       </h2>
 
-      <div class="plans">
+      <plan-picker></plan-picker>
 
+      <!-- <div class="plans">
         <plan v-for="(plan, index) in plans" :name="plan" :key="index">{{ plan }}</plan>
+      </div> -->
 
-        <!-- <plan name="The Hacker"></plan>
-        <plan name="The Curious"></plan>
-        <plan name="The Addict"></plan> -->
-
-        <!-- <div class="plan">
-          <div class="description">
-            <span class="title">
-              The Single
-            </span>
-          </div>
-        </div>
-
-        <div class="plan">
-          <div class="description">
-            <span class="title">
-              The Curious
-            </span>
-          </div>
-        </div>
-
-        <div class="plan">
-          <div class="description">
-            <span class="title">
-              The Addict
-            </span>
-          </div>
-        </div> -->
-
-      </div>
     </div>
   </div>
 
@@ -59,6 +32,12 @@
           {{ name }}
         </span>
       </div>
+    </div>
+  </script>
+
+  <script type="text/x-template" id="plan-picker-template">
+    <div class="plans">
+      <plan v-for="(plan, index) in plans" :name="plan" :key="index">{{ plan }}</plan>
     </div>
   </script>
 
