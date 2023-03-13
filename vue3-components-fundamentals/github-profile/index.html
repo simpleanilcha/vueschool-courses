@@ -1,0 +1,108 @@
+<html>
+
+<head>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+</head>
+
+<body>
+
+  <div id="app"
+       class="ui container">
+    <h1>GitHub Profiles</h1>
+    <github-user-card username="sdras"></github-user-card>
+    <github-user-card username="simpleanilcha"></github-user-card>
+
+    <!-- Template for GitHub card -->
+    <!-- <div class="ui card">
+      <div class="image">
+        <img src="https://semantic-ui.com/images/avatar2/large/kristy.png">
+      </div>
+      <div class="content">
+        <a class="header">Kristy</a>
+        <div class="meta">
+          <span class="date">Joined in 2013</span>
+        </div>
+        <div class="description">
+          Kristy is an art director living in New York.
+        </div>
+      </div>
+      <div class="extra content">
+        <a>
+          <i class="user icon"></i>
+          22 Friends
+        </a>
+      </div>
+    </div> -->
+  </div>
+
+  <!-- Import Vue.js and axios -->
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <!-- Your JavaScript Code :) -->
+  <script type="text/x-template" id="github-user-card-template">
+    <div v-if="isLoading">Loading...</div>
+    <div class="ui card" v-else>
+      <div class="image">
+        <img :src="user.avatar_url">
+      </div>
+      <div class="content">
+        <a :href="`https://github.com/${username}`" class="header">{{ user.name }}</a>
+        <div class="meta">
+          <span class="date">Joined in {{ joinDate }}</span>
+        </div>
+        <div class="description">
+          {{ user.bio }}
+        </div>
+      </div>
+      <div class="extra content">
+        <a :href="`https://github.com/${username}?tab=followers`">
+          <i class="user icon"></i>
+          {{ user.followers }} followers
+        </a>
+      </div>
+    </div>
+  </div>
+  </script>
+  <script>
+    Vue.createApp({
+
+    })
+
+    .component('github-user-card', {
+      template: '#github-user-card-template',
+      props: {
+        username: {
+          type: String,
+          default: 'simpleanilcha',
+          required: true
+        }
+      },
+      data() {
+        return {
+          user: {},
+          isLoading: true
+        }
+      },
+      async created() {
+        this.isLoading = true
+        const response = await axios.get(`https://api.github.com/users/${this.username}`)
+        if (response) {
+          this.isLoading = false
+          this.user = response.data
+        }
+      },
+      computed: {
+        joinDate() {
+          return new Date(this.user.created_at).getFullYear()
+        }
+      },
+      
+    })
+    
+    .mount('#app')
+  </script>
+</body>
+
+</html>
