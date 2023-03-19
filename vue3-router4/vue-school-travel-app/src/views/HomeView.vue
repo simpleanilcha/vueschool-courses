@@ -2,7 +2,7 @@
 import sourceData from '@/data.json'
 
 const destinations = sourceData.destinations
-console.log(destinations)
+// console.log(destinations)
 </script>
 
 <template>
